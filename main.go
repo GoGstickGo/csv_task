@@ -21,11 +21,9 @@ func main() {
 		log.Fatalf("Error: %v", err)
 	}
 
-	day, minTemp, err := csvtask.GetMinTemp(recordsInt)
-	if err != nil {
-		log.Fatalf("Error: %v", err)
-	}
+	day, minTemp := csvtask.GetMinTemp(recordsInt)
 
-	fmt.Printf("Lowest temperature was on %dth day, temperature was %d Fahrenheit.\n", day, minTemp)
+	sf := csvtask.Suffix(day)
+	fmt.Printf("Lowest temperature was on %d"+sf+" day, temperature was %d Fahrenheit.\n", day, minTemp)
 
 }
