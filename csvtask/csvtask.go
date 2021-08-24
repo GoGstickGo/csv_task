@@ -11,6 +11,10 @@ type csvData struct {
 	MinTempRow string
 }
 
+const (
+	RowNumber = 2
+)
+
 func OpenCsv(csvfile string) (file *os.File, err error) {
 	file, err = os.Open(csvfile)
 	if err != nil {
@@ -34,7 +38,7 @@ func ConvertCsv(records [][]string) (recordsInt []int, err error) {
 	}
 	for _, v := range records {
 		data := csvData{
-			MinTempRow: v[2],
+			MinTempRow: v[RowNumber],
 		}
 		//convert string elements to integer
 		tempInt, _ := strconv.Atoi(data.MinTempRow)
