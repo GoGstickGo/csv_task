@@ -29,6 +29,9 @@ func ReadCsv(file *os.File) (records [][]string, err error) {
 }
 
 func ConvertCsv(records [][]string) (recordsInt []int, err error) {
+	if len(records) == 0 {
+		return nil, fmt.Errorf("there is no data to process, please make csv file has data")
+	}
 	for _, v := range records {
 		data := csvData{
 			MinTempRow: v[2],
@@ -37,25 +40,33 @@ func ConvertCsv(records [][]string) (recordsInt []int, err error) {
 		tempInt, _ := strconv.Atoi(data.MinTempRow)
 
 		recordsInt = append(recordsInt, tempInt)
-		if len(recordsInt) == 0 {
-			return nil, fmt.Errorf("can't proceed with empty slice")
-		}
 	}
 	return recordsInt, nil
 }
 
-func GetMinTemp(recordsInt []int) (day, minTemp int, err error) {
+func GetMinTemp(recordsInt []int) (day, minTemp int) {
 	//remove first element of slice
 	recordsInt = append(recordsInt[:0], recordsInt[0+1:]...)
-	if recordsInt[0] == 0 {
-		return 0, 0, fmt.Errorf("couldn't get lowest temperature")
-	}
-	minTemp = recordsInt[0]
+
 	for k, v := range recordsInt {
-		if v < minTemp {
+		if k == 0 || v < minTemp {
 			minTemp = v
 			day = k + 1
 		}
 	}
-	return day, minTemp, nil
+	return day, minTemp
+}
+
+func Suffix(d int) (end string) {
+	switch d {
+	case 1:
+		end = "st"
+	case 2:
+		end = "nd"
+	case 3:
+		end = "rd"
+	default:
+		end = "th"
+	}
+	return end
 }
