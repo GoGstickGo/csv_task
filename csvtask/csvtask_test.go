@@ -107,6 +107,7 @@ func TestSuffix(t *testing.T) {
 		{"test1st", args{1}, "st"},
 		{"test2nd", args{2}, "nd"},
 		{"test3rd", args{3}, "rd"},
+		{"test31th", args{31}, "st"},
 		{"testdefault", args{120}, "th"},
 	}
 	for _, tt := range tests {

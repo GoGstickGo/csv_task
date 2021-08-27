@@ -63,11 +63,11 @@ func GetMinTemp(recordsInt []int) (day, minTemp int) {
 
 func Suffix(d int) (end string) {
 	switch d {
-	case 1:
+	case 1, 21, 31:
 		end = "st"
-	case 2:
+	case 2, 22:
 		end = "nd"
-	case 3:
+	case 3, 23:
 		end = "rd"
 	default:
 		end = "th"
